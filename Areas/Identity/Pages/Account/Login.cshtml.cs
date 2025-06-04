@@ -129,11 +129,11 @@ namespace MVCFlowerShop.Areas.Identity.Pages.Account
                     {
                         Console.WriteLine(userrole);
                         if (String.IsNullOrEmpty(userrole))
-                            return RedirectToAction("Index", "Home");
+                            return Redirect("~/Identity/Account/Manage/Index");
                         else if (userrole.Equals("Admin"))
                             return RedirectToAction("Index", "FlowerList");
                         else
-                            return Redirect("~/Identity/Account/Manage/Index");
+                            return RedirectToAction("Index", "Home");
                     }
 
                 }

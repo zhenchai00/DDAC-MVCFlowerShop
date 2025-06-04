@@ -42,5 +42,60 @@ namespace MVCFlowerShop.Controllers
 
             return View(flower);    // form is error, then direct to previous page and display error data
         }
+
+        public async Task<IActionResult> EditData(int? FlowerId)
+        {
+            if (FlowerId == null)
+            {
+                return NotFound();
+            }
+            var flower = await _context.FlowerList.FindAsync(FlowerId);
+
+            if (flower == null)
+            {
+                return BadRequest(FlowerId + " is not found in the table!");
+            }
+
+            return View(flower);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateData(FlowerTable flower)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _context.FlowerList.Update(flower);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "FlowerList");
+                }
+                return View("EditData", flower);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error: " + ex.Message);
+            }
+        }
+
+        public async Task<IActionResult> DeleteData(int? FlowerId)
+        {
+            if (FlowerId == null)
+            {
+                return NotFound();
+            }
+
+            var flower = await _context.FlowerList.FindAsync(FlowerId);
+
+            if (flower == null)
+            {
+                return BadRequest(FlowerId + " is not found in the list!");
+            }
+
+            _context.FlowerList.Remove(flower);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "FlowerList");
+        }
     }
 }
