@@ -1,0 +1,37 @@
+﻿@model List<FlowerTable>
+
+<center>
+    <h1>Flower List Table</h1>
+    <br/>
+    <p>
+        <button class="btn-black">
+            <a asp-action="AddData" asp-controller="FlowerList">
+                Insert New Flower
+            </a>
+        </button>
+    </p>
+    <hr />
+    <br />
+    <table border="1">
+        <tr>
+            <th>Flower Id</th>
+            <th>Flower Name</th>
+            <th>Flower Price</th>
+            <th>Flower Produced Date</th>
+            <th>Flower Type</th>
+        </tr>
+        @if (Model.Count != 0)
+        {
+            @foreach (var flower in Model)
+            {
+                <tr>
+                    <td>@flower.FlowerId</td>
+                    <td>@flower.FlowerName</td>
+                    <td>@flower.FlowerPrice</td>
+                    <td>@flower.FlowerProducedDate</td>
+                    <td>@flower.FlowerType</td>
+                </tr>
+            }
+        }
+    </table>
+</center>
