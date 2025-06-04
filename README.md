@@ -1,3 +1,3 @@
 # MVCFlowerShop
 
-- This is the MVC based .net core flower shop
+- This is the MVC based .net core flower shop.
